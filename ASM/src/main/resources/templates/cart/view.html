@@ -1,0 +1,55 @@
+<div xmlns:th="http://www.thymeleaf.org" 
+	th:replace="~{/layout/index :: dynamic (~{::main})}">
+	<main>
+		
+		
+		
+		<div class="container-fluid "  th:fragment="cart_frag">
+		 <div class="text-center mb-4 ">
+		 	<h2 class="section-title "><span class="px-2">SHOPPING CART</span></h2>
+		 </div>
+	        <div class="row px-xl-5">
+	            <div class=" table-responsive mb-5">
+	                <table class="table table-bordered text-center mb-0">
+	                    <thead class="bg-secondary text-dark">
+	                        <tr>
+	                          
+	                            <th>Id</th>
+								<th>Products</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Total</th>
+								<th>Remove</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody class="align-middle">
+	                        <tr ng-repeat="item in cart.items">
+	                        	<td class="align-middle">{{item.id}}</td>
+	                            <td class="align-middle"><img src="/assets/images/{{item.image}}" alt="" style="width: 50px;"> {{item.name}} </td>
+	                            <td class="align-middle">${{item.price | number : 2}}</td>
+	                            <td class="align-middle">
+	                                <div class="input-group quantity mx-auto" style="width: 100px;">
+	                                    
+	                                    <input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" class="form-control form-control-sm bg-secondary text-center" >
+	                                </div>
+	                            </td>
+	                            <td class="align-middle">${{cart.amt_of(item) | number : 2}}</td>
+	                            <td class="align-middle"><button class="btn btn-sm btn-primary" ng-click="cart.remove(item.id)"><i class="fa fa-times"></i></button></td>
+	                        </tr>
+	                       
+	                    </tbody>
+	                </table>
+	                <div ng-if="cart.items.length" class="panel-footer py-5">
+						<button ng-click="cart.clear()" class="btn btn-danger">
+							<i class="glyphicon glyphicon-trash"></i> Clear
+						</button>
+						<a th:href="@{/order/checkout}" class="btn btn-primary">
+							<i class="glyphicon glyphicon-hand-right"></i> Checkout
+						</a>
+					</div>
+	            </div>
+	            
+	        </div>
+    	</div>
+	</main>
+</div>

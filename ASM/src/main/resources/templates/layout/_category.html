@@ -1,0 +1,12 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="panel panel-primary">
+		
+		<div class="list-group">
+			<th:block th:each="c:${cates}">
+				<a th:href="@{|/product/list?cid=${c.id}|}" class="nav-item nav-link">
+					<span th:text="${c.name}"></span>
+				</a>
+			</th:block>
+		</div>
+	</div>
+</div>

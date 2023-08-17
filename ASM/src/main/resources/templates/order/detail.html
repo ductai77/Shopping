@@ -1,0 +1,59 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic (~{::main})}">
+    <main th:object="${order}">
+	    <div class="container-fluid "  th:fragment="cart_frag">
+	        <div class="panel panel-primary">
+	            <div class="text-center mb-4 ">
+			 		<h2 class="section-title "><span class="px-2">ORDER INFORMATION</span></h2>
+			 	</div>
+	            <div class="panel-body">
+	            	<div class="row">
+		            	<div class="form-group col-sm-4">
+		                    <div>Order Number:</div>
+		                    <input th:field="*{id}" class="form-control" readonly>
+		                </div>
+		                <div class="form-group col-sm-4">
+		                    <div>Purchaser:</div>
+		                    <input th:field="*{account.username}" class="form-control" readonly>
+		                </div>
+		                <div class="form-group col-sm-4">
+		                    <div>Purchased Date:</div>
+		                    <input th:field="*{createDate}" class="form-control" readonly>
+		                </div>
+	                </div>
+	                <div class="row">
+		                <div class="form-group col-sm-12">
+		                    <div>Shipping Address:</div>
+		                    <textarea th:field="*{address}" class="form-control" readonly></textarea>
+		                </div>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="panel panel-primary">
+		        <div class="text-center mb-4 ">
+			 		<h2 class="section-title "><span class="px-2">ORDER LINES</span></h2>
+			 	</div>
+	            <table class="table table-bordered text-center mb-0">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody class="align-middle">
+						<tr th:each="detail: *{orderDetails}" th:object="${detail}">
+							<td class="align-middle">[[*{product.id}]]</td>
+							<td class="align-middle">[[*{product.name}]]</td>
+							<td class="align-middle">$[[*{#numbers.formatDecimal(price, 0, 'COMMA', 2, 'POINT')}]]</td>
+							<td class="align-middle">[[*{quantity}]]</td>
+							<td class="align-middle">$[[*{#numbers.formatDecimal(price*quantity, 0, 'COMMA', 2, 'POINT')}]]</td>
+						</tr>
+					</tbody>
+				</table>
+	          </div>
+	     </div>
+    </main>
+</div>
